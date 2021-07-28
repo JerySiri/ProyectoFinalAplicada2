@@ -103,8 +103,37 @@ namespace ProyectoFinalAplicada2.BLL
             }
             return lista;
         }
+        public List<RankingUsuarios> ObtenerListaRankingOrganizada()
+        {
+            List<RankingUsuarios> ListaRanking = new List<RankingUsuarios>();
+            try
+            {
+                var Consulta = from C in Contexto.RankingUsuarios
+                               orderby C.puntos descending
+                               select new RankingUsuarios()
+                               {
+                                   id = C.id,
+                                   Nombre = C.Nombre,
+                                   puntos = C.puntos,
+                                   tiempo = C.tiempo
+
+                               };
+
+                ListaRanking = Consulta.ToList();
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                Contexto.Dispose();
+            }
+
+            return ListaRanking;
+        }
 
 
-        
     }
 }
