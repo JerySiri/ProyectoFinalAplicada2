@@ -1,0 +1,357 @@
+﻿@page "/AnimalesGame"
+@using Models
+@using Microsoft.AspNetCore.Identity
+@using System.Timers
+@using BLL
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject RankingUsuariosBLL RankingUsuariosBLL
+
+
+<style>
+    .container {
+        width: 450px;
+    }
+
+    .divTablanJuego {
+        position: absolute;
+        top: 475px;
+        left: 450px;
+    }
+
+    .buttonEmojis {
+        width: 75px;
+        height: 75px;
+        font-size: 50px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+</style>
+
+<div class="container">
+
+    <h3>AnimalesGame</h3>
+
+    <div class="row">
+
+        @if (seInicioElJuego)
+        {
+            @for (var animalNumber = 0; animalNumber < shuffledAnimals.Count; animalNumber++)
+            {
+                var animal = shuffledAnimals[animalNumber];
+
+                var uniqueDescription = $"Button #{animalNumber}";
+                <div class="col-2">
+
+                    <button @onclick="@(() => ButtonClick(animal, uniqueDescription))"
+                            type="button" class="btn buttonEmojis btn-outline-dark">
+
+                        <h1>@animal</h1>
+                    </button>
+
+                </div>
+            }
+        }
+        else
+        {
+            <button @onclick="@(() => IniciarPartida())" class="btn btn-danger"> Iniciar Partida </button>
+
+        }
+
+    </div>
+</div>
+
+<div class="divTablanJuego">
+    <div class="row">
+        <h2>Parejas Encontradas: @matchesFound</h2>
+    </div>
+
+    <div class="row">
+
+        <h2>Puntos: @puntos</h2>
+
+    </div>
+
+    <div class="row">
+
+        <h2>Tiempo: @timeDisplay</h2>
+
+    </div>
+
+</div>
+
+<div class="row">
+    @if (seInicioElJuego && !(@matchesFound == CantidadDeEmojis(animalEmoji)))
+    {
+        <button @onclick="@(() => SetUpGame())" class="btn btn-danger"> Terminar La Partida </button>
+    }
+</div>
+
+<div class="row">
+    @if (@matchesFound == CantidadDeEmojis(animalEmoji))
+    {
+
+        <input class="btn btn-success" type="button" onclick="document.location.reload();" value="Volver a Jugar">
+
+        <AuthorizeView>
+
+            <Authorized>
+
+                @if (!fueGuardado)
+                {
+                    <button @onclick="@(() =>GuardarEnRankingUsuarios(context.User.Identity.Name))" class="btn btn-success"> Guardar Puntuacion </button>
+                }
+            </Authorized>
+
+            <NotAuthorized>
+                <h2>Debe de estar Logueado Para Guardar su puntaje</h2>
+            </NotAuthorized>
+        </AuthorizeView>
+    }
+</div>
+
+
+@code {
+    List<string> shuffledAnimals = new List<string>();
+    int matchesFound = 0;
+    int puntos = 0;
+    Timer timer;
+    int tenthsOfSecondsElapsed = 0;
+    string timeDisplay;
+    bool seInicioElJuego = false;
+
+    bool fueGuardado = false;
+
+    protected override void OnInitialized()
+    {
+
+        timer = new Timer(100);
+        timer.Elapsed += Timer_Tick;
+
+        SetUpGame();
+    }
+
+    private void SetUpGame()
+    {
+        Random random = new Random();
+        shuffledAnimals = animalEmoji
+            .OrderBy(item => random.Next())
+            .ToList();
+        matchesFound = 0;
+        puntos = 0;
+        seInicioElJuego = false;
+        tenthsOfSecondsElapsed = 0;
+        timeDisplay = "0";
+        fueGuardado = false;
+        timer.Stop();
+    }
+
+    string lastAnimalFound = string.Empty;
+
+    string lastDescription = string.Empty;
+
+    private void ButtonClick(string animal, string animalDescription)
+    {
+        if (lastAnimalFound == string.Empty)
+        {
+            // First selection of the pair. Remember it.
+            lastAnimalFound = animal;
+            lastDescription = animalDescription;
+
+            if (CantidadDeEmojis(animalEmoji) > matchesFound)
+            {
+                timer.Start();
+            }
+
+        }
+        else if ((lastAnimalFound == animal) && (animalDescription != lastDescription))
+        {
+            // Match found! Reset for next pair.
+            lastAnimalFound = string.Empty;
+
+            // Replace found animals with empty string to hide them.
+            shuffledAnimals = shuffledAnimals
+                .Select(a => a.Replace(animal, string.Empty))
+                .ToList();
+
+            matchesFound++;
+
+            puntos += ObtenerPuntoPorTiempo(tenthsOfSecondsElapsed / 10F);
+
+            if (matchesFound == CantidadDeEmojis(animalEmoji))
+            {
+                timer.Stop();
+
+            }
+        }
+        else
+        {
+            // User selected a pair that don't match.
+            // Reset selection.
+            lastAnimalFound = string.Empty;
+        }
+    }
+
+    private void Timer_Tick(Object source, ElapsedEventArgs e)
+    {
+        InvokeAsync(() =>
+        {
+            tenthsOfSecondsElapsed++;
+
+            timeDisplay = (tenthsOfSecondsElapsed / 10F)
+                .ToString("0.0s");
+            StateHasChanged();
+
+
+
+        });
+    }
+
+    private int CantidadDeEmojis(List<string> emojis)
+    {
+        return (emojis.Count / 2);
+    }
+
+    private int ObtenerPuntoPorTiempo(float tiempo)
+    {
+
+
+        if (tiempo <= 5)
+        {
+            return 125;
+        }
+        else if (tiempo > 5 && tiempo <= 10)
+        {
+            return 100;
+        }
+        else if (tiempo > 10 && tiempo <= 15)
+        {
+            return 75;
+        }
+        else if (tiempo > 15 && tiempo <= 20)
+        {
+            return 50;
+        }
+        else if (tiempo > 20 && tiempo <= 25)
+        {
+            return 25;
+        }
+        else if (tiempo > 25 && tiempo <= 30)
+        {
+            return 1;
+        }
+
+        return puntos;
+    }
+
+    List<string> animalEmoji = new List<string>()
+    {
+        "🐶","🐶",
+        "🐺","🐺",
+        "🐮","🐮",
+        "🦊","🦊",
+        "🐱","🐱",
+        "🦁","🦁",
+        "🐯","🐯",
+        "🐹","🐹",
+        "🐗","🐗",
+        "🐍","🐍",
+        "🐬","🐬",
+        "🐢","🐢",
+    };
+    /*
+    private List<string> ActualizarNivelDeListas(int nivel)
+    {
+        List<string> ListaAnivelada = new List<string>();
+
+        switch (nivel)
+        {
+            case 1:
+                ListaAnivelada = new List<string>()
+                {
+                    "🐶","🐶",
+                    "🐺","🐺",
+                    "🦊","🦊",
+                    "🐱","🐱",
+                    "🦁","🦁",
+                    "🐯","🐯",
+                    "🐗","🐗",
+                    "🐍","🐍",
+                    "🐬","🐬",
+                };
+
+                break;
+
+            case 2:
+
+                break;
+
+            case 3:
+                ListaAnivelada = new List<string>()
+                {
+                    "🐶","🐶",
+                    "🐺","🐺",
+                    "🐮","🐮",
+                    "🦊","🦊",
+                    "🐱","🐱",
+                    "🦁","🦁",
+                    "🐯","🐯",
+                    "🐹","🐹",
+                    "🐗","🐗",
+                    "🐍","🐍",
+                    "🐬","🐬",
+                    "🐢","🐢",
+                };
+                break;
+
+            case 4:
+
+                break;
+
+            case 5:
+
+                break;
+
+            case 6:
+
+                break;
+
+                return ListaAnivelada;
+        }
+    }
+    */
+
+    public void TerminarPartida()
+    {
+        timer.Stop();
+    }
+
+    public void IniciarPartida()
+    {
+        timer.Start();
+        seInicioElJuego = true;
+    }
+
+
+    public void GuardarEnRankingUsuarios( string nombreUsuario)
+    {
+        RankingUsuarios ranking = new RankingUsuarios();
+
+        ranking.Nombre = nombreUsuario;
+        ranking.puntos = puntos;
+        ranking.tiempo = (tenthsOfSecondsElapsed / 10F);
+
+        try
+        {
+            fueGuardado = RankingUsuariosBLL.Guardar(ranking);
+        }
+        catch (Exception)
+        {
+
+        }
+
+
+    }
+
+}
