@@ -1,20 +1,31 @@
 ﻿@page "/Nosotros"
 
-<div class="card">
-    <div class="card-header">
-        <h3>Integrantes</h3>
+<div class="card shadow-lg ">
+    <div class="col-xl text-center ">
+        <div class="card-header">
+            <h3>Integrantes</h3>
+        </div>
     </div>
+
     <div class="card-body">
 
-        <img src="/Images/Sonic.png" asp-append-version="true" width="300px" />
+        <img src="/Imagenes/Sonic.png" asp-append-version="true" width="200" class="img-circulo"/>
+
         <h3>Albenny Hernandez Cruz</h3>
+        <div></div>
+        <h3 class="color ">Escarolin Ventura Polanco</h3>
         <h3></h3>
-        <h3>Escarolin Ventura Polanco</h3>
+        <h3 class="text-primary" style="font-style:@headingFontStyle "> Jordy Anderson Celestino Mendoza</h3>
         <h3></h3>
-        <h3>Jordy Anderson Celestino Mendoza</h3>
-        <h3></h3>
+        
+        @*class="text-center"*@
         <h3>Jery Javier Siri Mena</h3>
         <h3></h3>
-        <h3>Raldy Steven Lopez Gilbert</h3>
+        <h3 class="text-primary">Raldy Steven Lopez Gilbert</h3>
     </div>
 </div>
+
+@code {
+    private string headingFontStyle = "italic";
+    private string color= "red";
+}
