@@ -1,7 +1,7 @@
 ﻿@page "/Nosotros"
 
-<div class="card shadow-lg ">
-    <div class="col-xl text-center ">
+<div class=" container mt-3 card shadow-lg col-10">
+    <div class="col-xl text-center  ">
         <div class="card-header">
             <h3>Integrantes</h3>
         </div>
@@ -9,23 +9,41 @@
 
     <div class="card-body">
 
-        <img src="/Imagenes/Sonic.png" asp-append-version="true" width="200" class="img-circulo"/>
+        @*____________________________________Integrante1____________________________________*@
+        <div class="foto1">
+            <img src="/Imagenes/Albenny.jpg" asp-append-version="true" width="200" class="img-circulo " />
+            <h6 class="text-primary" style="position: absolute; top: 280px; left: 110px;">Albenny Hernandez Cruz</h6>
+        </div>
 
-        <h3>Albenny Hernandez Cruz</h3>
-        <div></div>
-        <h3 class="color ">Escarolin Ventura Polanco</h3>
-        <h3></h3>
-        <h3 class="text-primary" style="font-style:@headingFontStyle "> Jordy Anderson Celestino Mendoza</h3>
-        <h3></h3>
-        
-        @*class="text-center"*@
-        <h3>Jery Javier Siri Mena</h3>
-        <h3></h3>
-        <h3 class="text-primary">Raldy Steven Lopez Gilbert</h3>
+        @*____________________________________Integrante2____________________________________*@
+        <div class="foto2">
+            <img src="/Imagenes/Escarolin.jpg" asp-append-version="true" class="img-circulo" width="100" height="150" />
+            <h6 class="text-primary" style="position: absolute; top: 280px; left: 670px;">Escarolin Ventura Polanco</h6>
+        </div>
+
+        @*____________________________________Integrante3____________________________________*@
+        <div class="foto3">
+            <img src="/Imagenes/Jordy.jpg" asp-append-version="true" class="img-circulo" width="100" height="150" />
+            <h6 class="text-primary" style="position: absolute; top: 490px; left: 630px;">Jordy Anderson Celestino Mendoza</h6>
+        </div>
+
+        @*____________________________________Integrante4____________________________________*@
+        <div class="foto4">
+            <img src="/Imagenes/Raldy.jpg" asp-append-version="true" class="img-circulo" width="100" height="150" />
+            <h6 class="text-primary" style="position: absolute; top: 490px; left: 110px;">Raldy Steven Lopez Gilbert</h6>
+        </div>
+
+        @*____________________________________Integrante5____________________________________*@
+        <div class="foto5">
+            <img src="/Imagenes/Jery.jpg" asp-append-version="true" class="img-circulo" width="100" height="150" />
+            <h6 class="text-primary" style="position: absolute; top: 390px; left: 400px;">Jery Javier Siri Mena</h6>
+        </div>
+        @*style="font-style:@headingFontStyle "*@
+
     </div>
 </div>
 
 @code {
     private string headingFontStyle = "italic";
-    private string color= "red";
+    
 }
