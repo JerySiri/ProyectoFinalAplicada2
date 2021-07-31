@@ -20,7 +20,7 @@ Aquí tendrás acceso al Menú de opciones, donde podrás jugar y consultar tu p
 # 🧏🏽‍♀️Indicaciones del Juego.
 - La función principal es realizar un click en una de las caras del tablero para luego hacer un  match con la otra cara igual ala primera.
 - Para estar en el primer lugar debe tener el menor tiempo haci su puntuacion subira.
--  Si el tiempo es menor o igual a 5 el puntaje es de 125, si el tiempo es mayor a 5 el puntaje es de 100 y asi para mas informacion consulte el apartado que te nemos en el menu principal para esto.
+-  Si el tiempo es menor o igual a 5 el puntaje es de 125, si el tiempo es mayor a 5 el puntaje es de 100 y asi para mas informacion consulte el apartado que tenemos en el menu principal para esto.
 # 📝 **Registros** 💾
 
 # **Registro de Usuarios:**
