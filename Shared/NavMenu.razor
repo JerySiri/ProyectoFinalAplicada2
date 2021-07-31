@@ -1,37 +1,91 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">Menú</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</div>
+﻿<nav class="navbar navbar-expand navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">Menú</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="AnimalesGame">
-                <span class="oi oi-plus" aria-hidden="true"></span> Juegos De Emojis
-            </NavLink>
-        </li>
+                <li class=" nav-link">
+                <li class="nav-item">
+                    <a class=" navbar-brand " href="AnimalesGame">Juegos De Emojis</a>
 
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="Ranking">
-                <span class="oi oi-project" aria-hidden="true"></span> Ranking De Jugadores
-            </NavLink>
-        </li>
+                </li>
+                </li>
 
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="Nosotros">
-                <span class="oi oi-people" aria-hidden="true"></span> Nosotros
-            </NavLink>
-        </li>
 
-    </ul>
-</div>
+
+                <li class="nav-item">
+                    <a class="nav-link navbar-brand" href="Ranking">Ranking De Jugadores</a>
+                </li>
+
+
+                <li class="nav-item">
+                    @*<span class="oi oi-people" aria-hidden="true"></span>*@
+                    <a class="nav-link navbar-brand" href="Nosotros">   Nosotros</a>
+
+                </li>
+
+
+                <li class="nav-item">
+                    <a class=" navbar-brand " href="identity/account/register">Registarse</a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class=" navbar-brand " href="Identity/Account/Login">Iniciar Sesión</a>
+                </li>
+
+                @*<li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown link
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>*@
+            </ul>
+        </div>
+    </div>
+</nav>
+
+@*<div class="top-row pl-4 navbar navbar-dark">
+        <a class="navbar-brand" href="">Menú</a>
+        <button class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+
+    <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+        <ul class="nav flex-column">
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                    <span class="oi oi-home" aria-hidden="true"></span> Home
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="AnimalesGame">
+                    <span class="oi oi-plus" aria-hidden="true"></span> Juegos De Emojis
+                </NavLink>
+            </li>
+
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="Ranking">
+                    <span class="oi oi-project" aria-hidden="true"></span> Ranking De Jugadores
+                </NavLink>
+            </li>
+
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="Nosotros">
+                    <span class="oi oi-people" aria-hidden="true"></span> Nosotros
+                </NavLink>
+            </li>
+
+        </ul>
+    </div>*@
 
 @code {
     private bool collapseNavMenu = true;
