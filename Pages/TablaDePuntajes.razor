@@ -46,9 +46,19 @@
 
     protected override void OnInitialized()
     {
-        RankingUsuarios = new List<RankingUsuarios>();
-        RankingUsuarios = RankingBLL.ObtenerListaRankingOrganizada();
+        Nuevo();
 
+        LlenarLista();
+    }
+
+    private void Nuevo()
+    {
+        RankingUsuarios = new List<RankingUsuarios>();
+    }
+
+    private void LlenarLista()
+    {
+        RankingUsuarios = RankingBLL.ObtenerListaRankingOrganizada();
     }
 
     public int PuntosAumentados()

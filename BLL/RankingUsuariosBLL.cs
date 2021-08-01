@@ -53,7 +53,7 @@ namespace ProyectoFinalAplicada2.BLL
             }
             finally
             {
-                Contexto.Dispose();
+                //Contexto.Dispose();
             }
 
             return paso;
@@ -128,7 +128,7 @@ namespace ProyectoFinalAplicada2.BLL
             }
             finally
             {
-                Contexto.Dispose();
+               // Contexto.Dispose();
             }
 
             return ListaRanking;
