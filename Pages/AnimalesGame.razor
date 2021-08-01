@@ -14,12 +14,12 @@
         width: 450px;
     }
 
-    .divTablanJuego {
+    /* .divTablanJuego {
         position: absolute;
         top: 475px;
         left: 450px;
     }
-
+       */
     .buttonEmojis {
         width: 75px;
         height: 75px;
@@ -82,14 +82,14 @@
 </div>
 
 <div class="row">
-    @if (seInicioElJuego && !(@matchesFound == CantidadDeEmojis(animalEmoji)))
+    @if (seInicioElJuego && !(@matchesFound == CantidadDeEmojis(shuffledAnimals)))
     {
         <button @onclick="@(() => SetUpGame())" class="btn btn-danger"> Terminar La Partida </button>
     }
 </div>
 
 <div class="row">
-    @if (@matchesFound == CantidadDeEmojis(animalEmoji))
+    @if (@matchesFound == CantidadDeEmojis(shuffledAnimals))
     {
 
         <input class="btn btn-success" type="button" onclick="document.location.reload();" value="Volver a Jugar">
@@ -135,9 +135,11 @@
     private void SetUpGame()
     {
         Random random = new Random();
-        shuffledAnimals = animalEmoji
-            .OrderBy(item => random.Next())
-            .ToList();
+
+        shuffledAnimals = ActualizarNivelDeListas(4)
+        .OrderBy(item => random.Next())
+        .ToList();
+
         matchesFound = 0;
         puntos = 0;
         seInicioElJuego = false;
@@ -159,7 +161,7 @@
             lastAnimalFound = animal;
             lastDescription = animalDescription;
 
-            if (CantidadDeEmojis(animalEmoji) > matchesFound)
+            if (CantidadDeEmojis(shuffledAnimals) > matchesFound)
             {
                 timer.Start();
             }
@@ -179,7 +181,7 @@
 
             puntos += ObtenerPuntoPorTiempo(tenthsOfSecondsElapsed / 10F);
 
-            if (matchesFound == CantidadDeEmojis(animalEmoji))
+            if (matchesFound == CantidadDeEmojis(shuffledAnimals))
             {
                 timer.Stop();
 
@@ -237,7 +239,7 @@
         {
             return 25;
         }
-        else if (tiempo > 25 && tiempo <= 30)
+        else if (tiempo > 25)
         {
             return 1;
         }
@@ -245,51 +247,31 @@
         return puntos;
     }
 
-    List<string> animalEmoji = new List<string>()
-    {
-        "🐶","🐶",
-        "🐺","🐺",
-        "🐮","🐮",
-        "🦊","🦊",
-        "🐱","🐱",
-        "🦁","🦁",
-        "🐯","🐯",
-        "🐹","🐹",
-        "🐗","🐗",
-        "🐍","🐍",
-        "🐬","🐬",
-        "🐢","🐢",
-    };
-    /*
     private List<string> ActualizarNivelDeListas(int nivel)
     {
-        List<string> ListaAnivelada = new List<string>();
+        List<string> animalEmoji = new List<string>();
 
         switch (nivel)
         {
             case 1:
-                ListaAnivelada = new List<string>()
-                {
-                    "🐶","🐶",
+                animalEmoji = new List<string>()
+            {
                     "🐺","🐺",
-                    "🦊","🦊",
+                    "🦑","🦑",
                     "🐱","🐱",
-                    "🦁","🦁",
+                    "🦓","🦓",
                     "🐯","🐯",
                     "🐗","🐗",
                     "🐍","🐍",
                     "🐬","🐬",
+                    "🐞","🐞",
                 };
 
                 break;
 
             case 2:
-
-                break;
-
-            case 3:
-                ListaAnivelada = new List<string>()
-                {
+                animalEmoji = new List<string>()
+            {
                     "🐶","🐶",
                     "🐺","🐺",
                     "🐮","🐮",
@@ -302,25 +284,78 @@
                     "🐍","🐍",
                     "🐬","🐬",
                     "🐢","🐢",
+                    "🐭","🐭",
+                    "🐰","🐰",
+                    "🐷","🐷",
+
                 };
                 break;
 
+            case 3:
+                animalEmoji = new List<string>()
+            {
+                    "🐱","🐱",
+                    "🦁","🦁",
+                    "🐤","🐤",
+                    "🐶","🐶",
+                    "🐻","🐻",
+                    "🐵","🐵",
+                    "🐟","🐟",
+                    "🐬","🐬",
+                    "🐋","🐋",
+                    "🐘","🐘",
+                    "🦈","🦈",
+                    "🦛","🦛",
+                    "🦏","🦏",
+                    "🐃","🐃",
+                    "🐩","🐩",
+                    "🦊","🦊",
+                    "🐯","🐯",
+                    "🐠","🐠",
+                    "🦗","🦗",
+                    "🦎","🦎",
+                    "🐉","🐉",
+
+                };
+
+                break;
+
             case 4:
+                animalEmoji = new List<string>()
+            {
+                    "🐭","🐭",
+                    "🐰","🐰",
+                    "🐼","🐼",
+                    "🐨","🐨",
+                    "🦇","🦇",
+                    "🐙","🐙",
+                    "🦐","🦐",
+                    "🐜","🐜",
+                    "🦀","🦀",
+                    "🐠","🐠",
+                    "🐵","🐵",
+                    "🙈","🙈",
+                    "🙉","🙉",
+                    "🙊","🙊",
+                    "🐒","🐒",
+                    "🦗","🦗",
+                    "🐢","🐢",
+                    "🐍","🐍",
+                    "🦎","🦎",
+                    "🐊","🐊",
+                    "🐱","🐱",
+                    "🦁","🦁",
+                    "🐣","🐣",
+                    "🦘","🦘",
+                    "🐈","🐈",
+                    "🐐","🐐",
+                    "🐇","🐇",
 
+                };
                 break;
-
-            case 5:
-
-                break;
-
-            case 6:
-
-                break;
-
-                return ListaAnivelada;
         }
+        return animalEmoji;
     }
-    */
 
     public void TerminarPartida()
     {
@@ -334,7 +369,7 @@
     }
 
 
-    public void GuardarEnRankingUsuarios( string nombreUsuario)
+    public void GuardarEnRankingUsuarios(string nombreUsuario)
     {
         RankingUsuarios ranking = new RankingUsuarios();
 
