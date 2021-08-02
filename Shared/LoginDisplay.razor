@@ -1,15 +1,29 @@
 ﻿<AuthorizeView>
 
     <Authorized>
-        <a href="">@context.User.Identity.Name</a>
 
-        <form method="post" action="Identity/Account/LogOut">
-            <button type="submit" class="nav-link btn btn-link">Cerrar Sesión</button>
-        </form>
+        <li style="float:right">
+            <form method="post" action="Identity/Account/LogOut">
+                <button type="submit" class="nav-link btn btn-link navbar-brand active"> Cerrar Sesión</button>
+            </form>
+        </li>
+
+        <li style="float:right">
+            <a class=" navbar-brand active" href="">@context.User.Identity.Name</a>
+        </li>
     </Authorized>
 
     <NotAuthorized>
-
+        <li style="float:right">
+            <a class=" navbar-brand active" href="identity/account/register"> 
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Registarse
+            </a>
+        </li>
+        <li style="float:right">
+            <a class=" navbar-brand active " href="Identity/Account/Login">
+                <span class="oi oi-account-login" aria-hidden="true"></span> Iniciar Sesión
+            </a>
+        </li>
 
     </NotAuthorized>
 </AuthorizeView>
