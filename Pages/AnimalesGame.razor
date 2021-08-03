@@ -31,11 +31,15 @@
 
 <div class="container">
 
-    <h3>AnimalesGame</h3>
+    <h3>AnimalesGame - Nivel: @Nivel</h3>
 
     <div class="row">
+        <hr />
+        <h4>Puntos Totales: @puntosTotales</h4>
+        <hr />
+        <h4>Tiempo Total: @TiempoTotal</h4>
 
-        @if (seInicioElJuego)
+        @if (seInicioElJuego && @Nivel <= 4)
         {
             @for (var animalNumber = 0; animalNumber < shuffledAnimals.Count; animalNumber++)
             {
@@ -53,7 +57,7 @@
                 </div>
             }
         }
-        else
+        else if(@Nivel<5)
         {
             <button @onclick="@(() => IniciarPartida())" class="btn btn-danger"> Iniciar Partida </button>
 
@@ -84,12 +88,12 @@
 <div class="row">
     @if (seInicioElJuego && !(@matchesFound == CantidadDeEmojis(shuffledAnimals)))
     {
-        <button @onclick="@(() => SetUpGame())" class="btn btn-danger"> Terminar La Partida </button>
+        <input class="btn btn-danger" type="button" onclick="document.location.reload();" value="Terminar La Partida">
     }
 </div>
 
 <div class="row">
-    @if (@matchesFound == CantidadDeEmojis(shuffledAnimals))
+    @if (@matchesFound == CantidadDeEmojis(shuffledAnimals) && @Nivel > 4)
     {
 
         <input class="btn btn-success" type="button" onclick="document.location.reload();" value="Volver a Jugar">
@@ -105,6 +109,7 @@
             </Authorized>
 
             <NotAuthorized>
+                <hr />
                 <h2>Debe de estar Logueado Para Guardar su puntaje</h2>
             </NotAuthorized>
         </AuthorizeView>
@@ -113,6 +118,10 @@
 
 
 @code {
+
+    int puntosTotales = 0;
+    float TiempoTotal = 0f;
+
     List<string> shuffledAnimals = new List<string>();
     int matchesFound = 0;
     int puntos = 0;
@@ -120,6 +129,7 @@
     int tenthsOfSecondsElapsed = 0;
     string timeDisplay;
     bool seInicioElJuego = false;
+    int Nivel = 1;
 
     bool fueGuardado = false;
 
@@ -136,7 +146,7 @@
     {
         Random random = new Random();
 
-        shuffledAnimals = ActualizarNivelDeListas(4)
+        shuffledAnimals = ActualizarNivelDeListas(Nivel)
         .OrderBy(item => random.Next())
         .ToList();
 
@@ -181,9 +191,21 @@
 
             puntos += ObtenerPuntoPorTiempo(tenthsOfSecondsElapsed / 10F);
 
+            puntosTotales += ObtenerPuntoPorTiempo(tenthsOfSecondsElapsed / 10F);
+
             if (matchesFound == CantidadDeEmojis(shuffledAnimals))
             {
+                TiempoTotal += (tenthsOfSecondsElapsed / 10F);
                 timer.Stop();
+
+                if (Nivel <= 4)
+                {
+
+                    Nivel++;
+                    seInicioElJuego = false;
+                }
+
+
 
             }
         }
@@ -360,8 +382,21 @@
 
     public void IniciarPartida()
     {
+
+
         timer.Start();
         seInicioElJuego = true;
+        tenthsOfSecondsElapsed = 0;
+        matchesFound = 0;
+        puntos = 0;
+        timeDisplay = "0";
+
+        Random random = new Random();
+
+        shuffledAnimals = ActualizarNivelDeListas(Nivel)
+        .OrderBy(item => random.Next())
+        .ToList();
+
     }
 
 
@@ -370,8 +405,8 @@
         RankingUsuarios ranking = new RankingUsuarios();
 
         ranking.Nombre = nombreUsuario;
-        ranking.puntos = puntos;
-        ranking.tiempo = (tenthsOfSecondsElapsed / 10F);
+        ranking.puntos = puntosTotales;
+        ranking.tiempo = TiempoTotal;
 
         try
         {
