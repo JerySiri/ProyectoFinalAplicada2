@@ -29,10 +29,6 @@ namespace ProyectoFinalAplicada2.BLL
             {
                 throw;
             }
-            finally
-            {
-                Contexto.Dispose();
-            }
 
             return encontrado;
         }
@@ -50,10 +46,6 @@ namespace ProyectoFinalAplicada2.BLL
             {
                 string mensaje = e.ToString();
                 throw;
-            }
-            finally
-            {
-                //Contexto.Dispose();
             }
 
             return paso;
@@ -77,10 +69,6 @@ namespace ProyectoFinalAplicada2.BLL
             {
                 throw;
             }
-            finally
-            {
-                Contexto.Dispose();
-            }
 
             return paso;
         }
@@ -97,10 +85,7 @@ namespace ProyectoFinalAplicada2.BLL
             {
                 throw;
             }
-            finally
-            {
-                Contexto.Dispose();
-            }
+
             return lista;
         }
         public List<RankingUsuarios> ObtenerListaRankingOrganizada()
@@ -125,10 +110,6 @@ namespace ProyectoFinalAplicada2.BLL
             catch (Exception)
             {
                 throw;
-            }
-            finally
-            {
-               // Contexto.Dispose();
             }
 
             return ListaRanking;
