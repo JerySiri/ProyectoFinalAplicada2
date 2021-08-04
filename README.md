@@ -10,6 +10,10 @@
 # 📇 **Presentación 📇 ** 
 Este es un mini-manual el cual le ayudara a interactuar y comprender como funciona  el  juego.
 
+# Usuario y contraseña por default🕹:
+Usuario: admin<br/>
+Contraseña: 12345
+
 
 # 🔑 **LogIn** 🔑
 Aquí deberás poner los datos de tu usuario.  
