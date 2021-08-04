@@ -1,49 +1,79 @@
-﻿ @page "/Nosotros"
+﻿@page "/Nosotros"
 
-<div class=" container mt-3 card shadow-lg col-8">
+
+<div class=" container mt-3 card shadow-lg col-8 ">
     <div class="col-xl text-center  ">
-        <div class="card-header">
-            <h3>Integrantes</h3>
+        <div class="card-header font-weight-bold">
+            <h3 style="font-style:@headingFontStyle" >Integrantes</h3>
         </div>
     </div>
 
-    <div class="card-body">
+    <div class="card-body ">
 
         @*Integrante1*@
         <div class="foto1">
-            <img src="/Imagenes/Albenny.jpg" asp-append-version="true" width="200" class="img-circulo " />
-            <h6 class="text-primary" style="position: absolute; top: 280px; left: 120px;">Albenny Hernandez Cruz</h6>
+            <h6 class="center">
+                <a href="https://github.com/albenny" target="_blank">
+                    <img src="/Imagenes/Albenny.jpg" asp-append-version="true" width="200" class="img-circulo " />
+                    <b class="text-primary" style="position: absolute; top: 280px; left: 120px;">Albenny Hernandez Cruz</b>
+                </a>
+            </h6>
+
         </div>
 
         @*Integrante2*@
         <div class="foto2">
-            <img src="/Imagenes/Escarolin2.jpg" asp-append-version="true" class="img-circulo" width="100" height="150" />
-            <h6 class="text-primary" style="position: absolute; top: 280px; left: 680px;">Escarolin Ventura Polanco</h6>
+            <h6 class="center">
+                <a href="https://github.com/escarolin" target="_blank">
+                    <img src="/Imagenes/Escarolin2.jpg" asp-append-version="true" class="img-circulo" width="100" />
+                    <b class="text-primary" style="position: absolute; top: 280px; left: 680px;">Escarolin Ventura Polanco</b>
+                </a>
+            </h6>
+
         </div>
 
         @*Integrante3*@
         <div class="foto3">
-            <img src="/Imagenes/Jordy.jpg" asp-append-version="true" class="img-circulo" width="100" height="150" />
-            <h6 class="text-primary" style="position: absolute; top: 490px; left: 650px;">Jordy Anderson Celestino Mendoza</h6>
+
+            <h6 class="center">
+                <a href="https://github.com/JordyAnderson99" target="_blank">
+                    <img src="/Imagenes/Jordy.jpg" asp-append-version="true" class="img-circulo" width="100" />
+                    <b class="text-primary" style="position: absolute; top: 490px; left: 650px;">Jordy Anderson Celestino Mendoza</b>
+                </a>
+            </h6>
+
         </div>
 
         @*Integrante4*@
         <div class="foto4">
-            <img src="/Imagenes/Raldy.jpg" asp-append-version="true" class="img-circulo" width="100" height="150" />
-            <h6 class="text-primary" style="position: absolute; top: 490px; left: 110px;">Raldy Steven Lopez Gilbert</h6>
+
+            <h6 class="center">
+                <a href="https://github.com/Raldylopez20" target="_blank">
+                    <img src="/Imagenes/Raldy.jpg" asp-append-version="true" class="img-circulo" width="100" height="150" />
+                    <b class="text-primary" style="position: absolute; top: 490px; left: 110px;">Raldy Steven Lopez Gilbert</b>
+                </a>
+            </h6>
+
+
         </div>
 
         @*Integrante5*@
         <div class="foto5">
-            <img src="/Imagenes/Jery.jpg" asp-append-version="true" class="img-circulo" width="100" height="150" />
-            <h6 class="text-primary" style="position: absolute; top: 390px; left: 400px;">Jery Javier Siri Mena</h6>
+            <h6 class="center">
+                <a href="https://github.com/JerySiri" target="_blank">
+                    <img src="/Imagenes/Jery.jpg" asp-append-version="true" class="img-circulo" width="100" height="150" />
+                    <b class="text-primary" style="position: absolute; top: 390px; left: 400px;">Jery Javier Siri Mena</b>
+                </a>
+            </h6>
+
+
         </div>
         @*style="font-style:@headingFontStyle "*@
 
     </div>
 </div>
 
-@code {
+@code 
+{ 
     private string headingFontStyle = "italic";
-    
 }
