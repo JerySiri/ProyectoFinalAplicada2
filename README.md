@@ -1,4 +1,4 @@
-# **Proyecto Final -🎮 Juego**<br/><br/>
+# **Proyecto Final -🎮 Juego 🕹**<br/><br/>
 
 # 👩🏽‍💻 **Participantes** 👨🏽‍💻‍💻
 ###  1) Albenny Hernández Cruz 
