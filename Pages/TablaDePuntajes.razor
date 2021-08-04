@@ -4,65 +4,69 @@
 @using ProyectoFinalAplicada2.BLL;
 @inject RankingUsuariosBLL RankingBLL;
 
-<div class="card-header">
+<div class=" container mt-3 card shadow-lg col-10">
+    <div class="col-xl text-center  ">
+        <div class="card-header">
 
-    <h3 class="text-center">Ranking De Los Mejores Jugadores</h3>
+            <h3 class="text-center">Ranking De Los Mejores Jugadores</h3>
+        </div>
+    </div>
 
-</div>
-
-<div class="card-body">
-    <table class="table">
-        <thead class="thead-light">
-            <tr>
-                <th scope="col">Puesto</th>
-                <th scope="col">Jugador</th>
-                <th scope="col">Puntaje</th>
-                <th scope="col">Tiempo</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var rankingUsuario in RankingUsuarios)
-            {
+    <div class="card-body">
+        <table class="table">
+            <thead class="thead-light">
                 <tr>
-                    <td>@PuntosAumentados()</td>
-                    <td>@rankingUsuario.Nombre</td>
-                    <td>@rankingUsuario.puntos</td>
-                    <td>@rankingUsuario.tiempo Segundos</td>
-
-
+                    <th scope="col">Puesto</th>
+                    <th scope="col">Jugador</th>
+                    <th scope="col">Puntaje</th>
+                    <th scope="col">Tiempo</th>
                 </tr>
+            </thead>
+            <tbody>
+                @foreach (var rankingUsuario in RankingUsuarios)
+                {
+                    <tr>
+                        <td>@PuntosAumentados()</td>
+                        <td>@rankingUsuario.Nombre</td>
+                        <td>@rankingUsuario.puntos</td>
+                        <td>@rankingUsuario.tiempo Segundos</td>
 
-            }
 
-        </tbody>
-    </table>
+                    </tr>
 
-</div>
+                }
 
-@code {
-    public List<RankingUsuarios> RankingUsuarios = new List<RankingUsuarios>();
+            </tbody>
+        </table>
 
-    int puesto = 1;
+    </div>
 
-    protected override void OnInitialized()
-    {
-        Nuevo();
+    </div>
 
-        LlenarLista();
+    @code {
+        public List<RankingUsuarios> RankingUsuarios = new List<RankingUsuarios>();
+
+        int puesto = 1;
+
+        protected override void OnInitialized()
+        {
+            Nuevo();
+
+            LlenarLista();
+        }
+
+        private void Nuevo()
+        {
+            RankingUsuarios = new List<RankingUsuarios>();
+        }
+
+        private void LlenarLista()
+        {
+            RankingUsuarios = RankingBLL.ObtenerListaRankingOrganizada();
+        }
+
+        public int PuntosAumentados()
+        {
+            return puesto++;
+        }
     }
-
-    private void Nuevo()
-    {
-        RankingUsuarios = new List<RankingUsuarios>();
-    }
-
-    private void LlenarLista()
-    {
-        RankingUsuarios = RankingBLL.ObtenerListaRankingOrganizada();
-    }
-
-    public int PuntosAumentados()
-    {
-        return puesto++;
-    }
-}
