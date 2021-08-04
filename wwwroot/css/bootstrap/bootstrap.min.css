@@ -39,21 +39,21 @@ body {
 
 .foto2 {
     padding: 20px;
-    margin: 10px 350px;
+    margin: 10px 200px;
     float: right;
     width: 50px; /**/
 }
 
 .foto3 {
     padding: 20px;
-    margin: 20px 350px;
+    margin: 20px 200px;
     float: right;
     width: 50px; /**/
 }
 
 .foto4 {
     padding: 20px;
-    margin: 20px 80px;
+    margin: 20px 70px;
     float: left;
     width: 20px; /*Para el tamano de la ventana*/
 }
