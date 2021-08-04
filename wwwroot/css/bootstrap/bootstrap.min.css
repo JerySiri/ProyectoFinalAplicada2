@@ -13,6 +13,23 @@
     background: #5cb85c;
 }
 
+pre, p {
+    font-size: 1.5em;
+    color: #FE7F88;
+    background-color: transparent;
+}
+
+
+
+
+
+body {
+    background-image: url(../../Imagenes/Azul.jpg);
+  
+    background-color: transparent;
+}
+
+
 .foto1 {
     padding: 20px;
     margin: 10px 80px;
