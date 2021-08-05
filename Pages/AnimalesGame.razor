@@ -13,13 +13,19 @@
     .container {
         width: 450px;
     }
+    .derecha {
 
-    /* .divTablanJuego {
         position: absolute;
         top: 475px;
         left: 450px;
     }
-       */
+
+    .izquierda {
+        position: absolute;
+        top: 475px;
+        left: 450px;
+    }
+
     .buttonEmojis {
         width: 75px;
         height: 75px;
@@ -29,92 +35,155 @@
     }
 </style>
 
-<div class="container">
 
-    <h3 class="font-weight-bold">AnimalesGame - Nivel: @Nivel</h3>
+@*Tabla Del Juego Total*@
+<div class="card align-self-center">
+    <div class="card-footer">
+        <div class="row">
 
-    <div class="row">
-        <hr />
-        <h4 class="font-weight-bold" style="font-style:@headingFontStyle " >Puntos Totales: @puntosTotales</h4>
-        <hr />
-        <h4 class="font-weight-bold">Tiempo Total: @TiempoTotal</h4>
-
-        @if (seInicioElJuego && @Nivel <= 4)
-        {
-            @for (var animalNumber = 0; animalNumber < shuffledAnimals.Count; animalNumber++)
+            <div class="col-4">
+                <h4 class="font-weight-bold" style="font-style:@headingFontStyle ">Puntos Totales: @puntosTotales</h4>
+            </div>
+            @if (@Nivel < 5)
             {
-                var animal = shuffledAnimals[animalNumber];
-
-                var uniqueDescription = $"Button #{animalNumber}";
-                <div class="col-2">
-
-                    <button @onclick="@(() => ButtonClick(animal, uniqueDescription))"
-                            type="button" class="btn buttonEmojis btn-outline-dark">
-
-                        <h1>@animal</h1>
-                    </button>
-
+                <div class="col-4 text-center">
+                    <h3 class="font-weight-bold">Match De Emojis - Nivel: @Nivel</h3>
                 </div>
             }
-        }
-        else if(@Nivel<5)
-        {
-            <button @onclick="@(() => IniciarPartida())" class="btn btn-danger"> Iniciar Partida </button>
+            else
+            {
+                <div class="col-4 text-center">
+                    <h3 class="font-weight-bold">Felicidades!!</h3>
+                </div>
+            }
 
-        }
+
+            <div class="col-4 text-right">
+                <h4 class="font-weight-bold ">Tiempo Total: @TiempoTotal</h4>
+            </div>
+
+        </div>
 
     </div>
 </div>
 
-<div class="divTablanJuego">
-    <div class="row">
-        <h2 class="font-weight-bold">Parejas Encontradas: @matchesFound</h2>
-    </div>
-
-    <div class="row">
-
-        <h2 class="font-weight-bold" target="_blank" >Puntos: @puntos</h2>
-
-    </div>
-
-    <div class="row">
-
-        <h2 class="font-weight-bold">Tiempo: @timeDisplay</h2>
-
-    </div>
-
-</div>
+<hr />
 
 <div class="row">
-    @if (seInicioElJuego && !(@matchesFound == CantidadDeEmojis(shuffledAnimals)))
-    {
-        <input class="btn btn-danger" type="button" onclick="document.location.reload();" value="Terminar La Partida">
-    }
-</div>
 
-<div class="row">
-    @if (@matchesFound == CantidadDeEmojis(shuffledAnimals) && @Nivel > 4)
-    {
+    <div class="col-6">
 
-        <input class="btn btn-success" type="button" onclick="document.location.reload();" value="Volver a Jugar">
+        <div class="card text-center" style="width: 40rem">
 
-        <AuthorizeView>
+            @*Juego*@
+            <div class="card-body">
 
-            <Authorized>
+                <div class="container">
 
-                @if (!fueGuardado)
+                    <div class="row">
+
+
+                        @if (seInicioElJuego && @Nivel <= 4)
+                        {
+
+                            @for (var animalNumber = 0; animalNumber < shuffledAnimals.Count; animalNumber++)
+                            {
+                                var animal = shuffledAnimals[animalNumber];
+
+                                var uniqueDescription = $"Button #{animalNumber}";
+                                <div class="col-2">
+
+                                    <button @onclick="@(() => ButtonClick(animal, uniqueDescription))"
+                                            type="button" class="btn buttonEmojis">
+
+                                        <h1>@animal</h1>
+                                    </button>
+
+                                </div>
+                            }
+                        }
+                        else if (@Nivel < 5)
+                        {
+                            <button @onclick="@(() => IniciarPartida())" class="btn btn-danger btn-block"> Iniciar Partida </button>
+
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card-footer">
+
+                @*Boton Terminar Partida*@
+                @if (seInicioElJuego && !(@matchesFound == CantidadDeEmojis(shuffledAnimals)))
                 {
-                    <button @onclick="@(() =>GuardarEnRankingUsuarios(context.User.Identity.Name))" class="btn btn-success"> Guardar Puntuacion </button>
-                }
-            </Authorized>
 
-            <NotAuthorized>
-                <hr />
-                <h2>Debe de estar Logueado Para Guardar su puntaje</h2>
-            </NotAuthorized>
-        </AuthorizeView>
-    }
+                    <input class="btn btn-outline-danger btn-block" type="button" onclick="document.location.reload();" value="Terminar La Partida">
+                }
+
+
+                @if (@matchesFound == CantidadDeEmojis(shuffledAnimals) && @Nivel > 4)
+                {
+                    @*Boton Volver A Jugar*@
+                    <input class="btn btn-outline-success btn-block" type="button" onclick="document.location.reload();" value="Volver a Jugar">
+
+                    <AuthorizeView>
+
+                        <Authorized>
+                            @if (!fueGuardado)
+                            {
+                                <hr />
+                                <button @onclick="@(() =>GuardarEnRankingUsuarios(context.User.Identity.Name))" class="btn btn-outline-success btn-block"> Guardar Puntuacion </button>
+                            }
+                        </Authorized>
+
+                        <NotAuthorized>
+                            <hr />
+                            <h2 class="alert-danger">Debe de estar Logueado Para Guardar su puntaje</h2>
+                        </NotAuthorized>
+                    </AuthorizeView>
+                }
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-6">
+
+        @*Tabla Del Juego Por Nivel*@
+        <div class="card" style="width: 22rem">
+
+            <div class="card-header">
+                <h3 class="font-weight-bold">Tabla De Juego Por Nivel</h3>
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <h4 class="font-weight-bold">Parejas Encontradas: @matchesFound</h4>
+                </div>
+
+                <div class="row">
+
+                    <h4 class="font-weight-bold" target="_blank">Puntos: @puntos</h4>
+
+                </div>
+
+                <div class="row">
+
+                    <h4 class="font-weight-bold">Tiempo: @timeDisplay</h4>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+<hr />
+
 
 
 @code {
@@ -146,11 +215,7 @@
 
     private void SetUpGame()
     {
-        Random random = new Random();
 
-        shuffledAnimals = ActualizarNivelDeListas(Nivel)
-        .OrderBy(item => random.Next())
-        .ToList();
 
         matchesFound = 0;
         puntos = 0;
@@ -275,7 +340,7 @@
         {
             case 1:
                 animalEmoji = new List<string>()
-            {
+    {
                     "🐺","🐺",
                     "🦑","🦑",
                     "🐱","🐱",
@@ -291,7 +356,7 @@
 
             case 2:
                 animalEmoji = new List<string>()
-            {
+    {
                     "🐶","🐶",
                     "🐺","🐺",
                     "🐮","🐮",
@@ -313,7 +378,7 @@
 
             case 3:
                 animalEmoji = new List<string>()
-            {
+    {
                     "🐱","🐱",
                     "🦁","🦁",
                     "🐤","🐤",
@@ -342,11 +407,8 @@
 
             case 4:
                 animalEmoji = new List<string>()
-            {
+    {
                     "🐭","🐭",
-                    "🐰","🐰",
-                    "🐼","🐼",
-                    "🐨","🐨",
                     "🦇","🦇",
                     "🐙","🐙",
                     "🦐","🦐",

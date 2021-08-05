@@ -7,21 +7,23 @@
         </button>
         
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            
             <ul class="navbar-nav">
+                
                 <li class=" nav-link">
-                <li class="nav-item">
-                    <a class=" navbar-brand" href="">
-                        <span class="oi oi-home" aria-hidden="true"></span> Inicio
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a class=" navbar-brand" href="">
+                            <span class="oi oi-home" aria-hidden="true"></span> Inicio
+                        </a>
+                    </li>
                 </li>
                 <li class=" nav-link">
-                <li class="nav-item">
-                    <a class=" navbar-brand " href="AnimalesGame">
-                        <span class="oi oi-play-circle" aria-hidden="true"></span> Juegos de Emojis
-                    </a>
+                    <li class="nav-item">
+                        <a class=" navbar-brand " href="AnimalesGame">
+                            <span class="oi oi-play-circle" aria-hidden="true"></span> Juegos de Emojis
+                        </a>
 
-                </li>
+                    </li>
                 </li>
 
 
@@ -39,6 +41,7 @@
                     </a>
 
                 </li>
+
                 <li class="nav-item">
                     <a class=" navbar-brand" href="intrusiones">
                         <span style="float:left" class="oi oi-book " aria-hidden="true"></span> Intrusiones
@@ -47,7 +50,10 @@
                 </li>
 
                 <li class="col-5">
+                    
                     <LoginDisplay />
+                    
+                    
                 </li>
 
 
@@ -55,41 +61,6 @@
         </div>
     </div>
 </nav>
-
-@*<div class="top-row pl-4 navbar navbar-dark">
-        <a class="navbar-brand" href="">Menú</a>
-        <button class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-
-    <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-        <ul class="nav flex-column">
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                    <span class="oi oi-home" aria-hidden="true"></span> Home
-                </NavLink>
-            </li>
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" href="AnimalesGame">
-                    <span class="oi oi-plus" aria-hidden="true"></span> Juegos De Emojis
-                </NavLink>
-            </li>
-
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" href="Ranking">
-                    <span class="oi oi-project" aria-hidden="true"></span> Ranking De Jugadores
-                </NavLink>
-            </li>
-
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" href="Nosotros">
-                    <span class="oi oi-people" aria-hidden="true"></span> Nosotros
-                </NavLink>
-            </li>
-
-        </ul>
-    </div>*@
 
 @code {
     private bool collapseNavMenu = true;
